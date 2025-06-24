@@ -12,6 +12,11 @@ struct Cli {
 #[derive(Debug, Subcommand)]
 enum Commands {
     Init,
+    CatFile {
+        #[arg(short = 'p')]
+        pretty: bool,
+        object_hash: String,
+    },
 }
 
 fn main() {
@@ -19,5 +24,10 @@ fn main() {
 
     match cli.command {
         Commands::Init => ferrit::init(),
+        Commands::CatFile {
+            pretty: true,
+            object_hash,
+        } => ferrit::cat_file(&object_hash),
+        Commands::CatFile { .. } => todo!(),
     }
 }
