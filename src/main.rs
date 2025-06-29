@@ -17,6 +17,11 @@ enum Commands {
         pretty: bool,
         object_hash: String,
     },
+    HashObject {
+        #[arg(short = 'w')]
+        write: bool,
+        file_name: String,
+    },
 }
 
 fn main() {
@@ -29,5 +34,13 @@ fn main() {
             object_hash,
         } => ferrit::cat_file(&object_hash),
         Commands::CatFile { .. } => todo!(),
+        Commands::HashObject {
+            write: true,
+            file_name,
+        } => {
+            let hash = ferrit::hash_object(&file_name, true);
+            println!("{}", hash);
+        }
+        Commands::HashObject { .. } => todo!(),
     }
 }
