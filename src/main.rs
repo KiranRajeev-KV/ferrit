@@ -22,6 +22,11 @@ enum Commands {
         write: bool,
         file_name: String,
     },
+    LsTree {
+        #[arg(long = "name-only")]
+        name_only: bool,
+        tree_sha: String,
+    },
 }
 
 fn main() {
@@ -42,5 +47,8 @@ fn main() {
             println!("{}", hash);
         }
         Commands::HashObject { .. } => todo!(),
+        Commands::LsTree { name_only, tree_sha } => {
+            ferrit::ls_tree(&tree_sha, name_only);
+        }
     }
 }
