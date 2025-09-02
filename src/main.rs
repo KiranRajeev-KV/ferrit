@@ -27,6 +27,7 @@ enum Commands {
         name_only: bool,
         tree_sha: String,
     },
+    WriteTree,
 }
 
 fn main() {
@@ -49,6 +50,9 @@ fn main() {
         Commands::HashObject { .. } => todo!(),
         Commands::LsTree { name_only, tree_sha } => {
             ferrit::ls_tree(&tree_sha, name_only);
+        }
+        Commands::WriteTree => {
+            ferrit::write_tree();
         }
     }
 }
